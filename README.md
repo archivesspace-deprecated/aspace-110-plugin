@@ -3,6 +3,8 @@ ArchivesSpace 1.1.0 maintenance plugin
 
 This plugin is used to apply bug fixes and small feature additions from the master branch into a 1.1.0 instance.
 
+[SUBSCRIBE TO UPDATES](https://github.com/archivesspace/aspace-110-plugin/commits/master.atom)
+
 Usage
 -----
 
