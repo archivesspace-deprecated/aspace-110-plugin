@@ -73,5 +73,7 @@ List of bugs fixes / features
 
 - [Refine default public ui sort](https://www.pivotaltracker.com/n/projects/386247/stories/81202652)
 - [Search results error with events](https://www.pivotaltracker.com/n/projects/386247/stories/81687020)
-
+- [As an archivist, I would like to be import EAD in a way that groups the containers to their instances ](https://www.pivotaltracker.com/story/show/81850480 )
+- [As an archivist, I would like containers to be EAD exported in  way that groups them to their instance ](https://www.pivotaltracker.com/story/show/79104156) 
+- [Filing Title not in EAD export ](https://www.pivotaltracker.com/n/projects/386247/stories/81106404)
 ---
