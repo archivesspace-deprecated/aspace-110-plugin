@@ -29,7 +29,9 @@ $.fn.waitUntilExists    = function (handler, shouldRunHandlerOnce, isChild) {
 
 }(jQuery));
 
-$("#resource_instances_ .subrecord-form-list > li.initialised").waitUntilExists( function() { 
-  $(this).each( function() { $(this).show(); } );
+$.each([ "#resource_instances_ .subrecord-form-list > li.initialised",
+    "#archival_object_instances_ .subrecord-form-list > li.initialised" ], function( index, selector ) {
+    $(selector).waitUntilExists( function() {
+      $(this).each( function() { $(this).show(); } );
+    });
 });
-
