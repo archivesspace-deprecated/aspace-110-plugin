@@ -167,6 +167,7 @@ class EADSerializer < ASpaceExport::Serializer
   end
 
   def serialize_child(data, xml, fragments, c_depth = 1)
+    begin 
     return if data["publish"] === false && !@include_unpublished
 
     tag_name = @use_numbered_c_tags ? :"c#{c_depth.to_s.rjust(2, '0')}" : :c
@@ -225,6 +226,11 @@ class EADSerializer < ASpaceExport::Serializer
                  )
       end
     }
+    rescue => e
+      xml.text "ASPACE EXPORT ERROR : YOU HAVE A PROBLEM WITH YOUR EXPORT. THE FOLLOWING INFORMATION MAY HELP:\n
+                MESSAGE: #{e.message.inspect}  \n
+                TRACE: #{e.backtrace.inspect} \n "
+    end
   end
 
 
@@ -485,7 +491,8 @@ class EADSerializer < ASpaceExport::Serializer
     data.bibliographies.each do |note|
       next if note["publish"] === false && !@include_unpublished
       content = ASpaceExport::Utils.extract_note_text(note, @include_unpublished)
-      head_text = note['label'] ? note['label'] : I18n.t("enumerations._note_types.#{note['type']}")
+      note_type = note["type"] ? note["type"] : "bibliography" 
+      head_text = note['label'] ? note['label'] : I18n.t("enumerations._note_types.#{note_type}", :default => note_type )
       audatt = note["publish"] === false ? {:audience => 'internal'} : {}
       
       atts = {:id => prefix_id(note['persistent_id']) }.reject{|k,v| v.nil? || v.empty? || v == "null" }.merge(audatt)
@@ -563,11 +570,9 @@ class EADSerializer < ASpaceExport::Serializer
           titleproper += "#{data.title}" if ( data.title && titleproper.empty? )
           titleproper += "<num>#{(0..3).map{|i| data.send("id_#{i}")}.compact.join('.')}</num>"
           xml.titleproper {  sanitize_mixed_content(titleproper, xml, fragments) }
-  
+          xml.titleproper("type" => "filing") { sanitize_mixed_content(data.finding_aid_filing_title, xml, fragments)} unless data.finding_aid_filing_title.nil?
           xml.author { sanitize_mixed_content(data.finding_aid_author, xml, fragments) }  unless data.finding_aid_author.nil?
           xml.sponsor { sanitize_mixed_content( data.finding_aid_sponsor, xml, fragments) } unless data.finding_aid_sponsor.nil?
-          
-          xml.titleproper("type" => "filing") { sanitize_mixed_content(data.finding_aid_filing_title, xml, fragments)} unless data.finding_aid_filing_title.nil?
       
         }
 
