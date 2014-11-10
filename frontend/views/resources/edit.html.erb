@@ -1,0 +1,11 @@
+<%= setup_context :object => @resource %>
+
+<div class="row-fluid" xmlns="http://www.w3.org/1999/html">
+  <div class="span12">
+    <%= render_aspace_partial :partial => "shared/tree", :locals => {:root_record => @resource} %>
+  </div>
+</div>
+
+<div id="object_container"></div>
+
+<script src="<%= "#{AppConfig[:frontend_prefix]}assets/instance_show_all_fix.js" %>"></script> 
