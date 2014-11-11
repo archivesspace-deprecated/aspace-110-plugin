@@ -609,7 +609,7 @@ class EADSerializer < ASpaceExport::Serializer
         }
 
         if (data.finding_aid_series_statement)
-          val = data.finding_aid_series_statemen
+          val = data.finding_aid_series_statement
           xml.seriesstmt {
             sanitize_mixed_content(  val, xml, fragments, true ) 
           }
