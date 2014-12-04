@@ -336,7 +336,6 @@ class EADSerializer < ASpaceExport::Serializer
   end
 
   def serialize_container(inst, xml, fragments)
-    File.open("/tmp/list.txt", "a") { |f| f << inst.inspect }  
     containers = []
     @parent_id = nil 
     (1..3).each do |n|
